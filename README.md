@@ -56,12 +56,12 @@ El servidor estará escuchando en el puerto especificado en la variable de entor
 | DELETE  | '/task/:id'      |DeleteTask   |
 
 ### Postman
-![Sing up user]("./assets/posrman/register.png")
-![Return token]("./assets/posrman/return_token.png")
-![Create task]("./assets/posrman/create_task.png")
-![Get task]("./assets/posrman/get_task.png")
-![Get task with query]("./assets/posrman/query.png")
-![Update task]("./assets/posrman/task_update.png")
+![Sing up user](./assets/postman/register.png)
+![Return token](./assets/postman/return_token.png)
+![Create task](./assets/postman/create_task.png)
+![Get task](./assets/postman/get_task.png)
+![Get task with query](./assets/postman/query.png)
+![Update task](./assets/postman/task_update.png)
 
 ### In progress
 - Autenticación con Auth0
