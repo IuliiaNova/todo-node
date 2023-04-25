@@ -56,11 +56,17 @@ El servidor estará escuchando en el puerto especificado en la variable de entor
 | DELETE  | '/task/:id'      |DeleteTask   |
 
 ### Postman
+Sing up user
 ![Sing up user](./assets/postman/register.png)
+Return token
 ![Return token](./assets/postman/return_token.png)
+Create task
 ![Create task](./assets/postman/create_task.png)
-![Get task](./assets/postman/get_task.png)
+Get task
+![Get task](./assets/postman/get_tasks.png)
+Get task with query
 ![Get task with query](./assets/postman/query.png)
+Update task
 ![Update task](./assets/postman/task_update.png)
 
 ### In progress
