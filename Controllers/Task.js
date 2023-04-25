@@ -1,15 +1,11 @@
 import Task from '../models/Task.js'
-import dayjs from 'dayjs'
-
 
 export const CreateTask = async (req, res, next) =>{
   try{
     const { id } = req.user;
-    const completeDate = new Date(req.body.date);
     const task = new Task ({ 
       ...req.body, 
-      userId: id,
-      date: completeDate
+      userId: id
     })
     const savedTask = await task.save();
     return res.status(201).json({task: savedTask })
@@ -42,24 +38,12 @@ export const GetTask = async (req, res, next) =>{
 export const GetTasks = async (req, res, next) =>{
   try{
     const type = req.query?.type
-    const day = req.query?.day
     const { id } = req.user
-    var min, max
-
-    if(day === 'today'){
-      min = dayjs().format('YYYY-MM-DD')
-      max = dayjs().format('YYYY-MM-DD')
-    }else if(day === 'week'){
-      min = dayjs().subtract(7, 'day').format('YYYY-MM-DD')
-      max = dayjs().format('YYYY-MM-DD')
-    }else if(day === 'month'){
-      min = dayjs().subtract(30, 'day').format('YYYY-MM-DD')
-      max = dayjs().format('YYYY-MM-DD')
-    }
+  
     if(type){
-      var tasks = await Task.find({userId: id , type , ...(day && {date: {$lte: new Date(max), $gte: new Date(min)} })})
+      var tasks = await Task.find({userId: id , type })
     }else{
-      var tasks = await Task.find({userId: id , ...(day && {date: {$lte: new Date(max), $gte: new Date(min)} }) })
+      var tasks = await Task.find({userId: id })
     }
     return res.status(201).json({tasks})
   
@@ -67,3 +51,15 @@ export const GetTasks = async (req, res, next) =>{
     next(err)
   }
 }
+
+export const DeleteTask = async (req, res, next) =>{
+  try{
+   const { id } = req.params
+   const task = await Task.findByIdAndDelete(id)
+    return res.status(201).json({task})
+  
+  }catch(err){
+    next(err)
+  }
+}
+

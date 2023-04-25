@@ -4,18 +4,16 @@ import User from '../models/User.js'
 
 export const Register = async (req, res, next) =>{
   try{
-    const { name, email, password, picturePath } = req.body
+    const { name, email, password } = req.body
     const salt = await bcrypt.genSalt()
     const hashedPassword = await bcrypt.hash(password, salt)
     const user = new User({
       name, 
       email, 
-      password: hashedPassword, 
-      picturePath
+      password: hashedPassword
     })
     const savedUser = await user.save()
     return res.status(201).json({user: savedUser })
-
   }catch(err){
     next(err)
   }
