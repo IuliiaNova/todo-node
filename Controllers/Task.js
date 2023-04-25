@@ -57,9 +57,9 @@ export const GetTasks = async (req, res, next) =>{
       max = dayjs().format('YYYY-MM-DD')
     }
     if(type){
-      var tasks = await Task.find({userId: id , type , ...(day && {date: {$lte : new Date(max), $gte: new Date(min)} })})
+      var tasks = await Task.find({userId: id , type , ...(day && {date: {$lte: new Date(max), $gte: new Date(min)} })})
     }else{
-      var tasks = await Task.find({userId: id , ...(day && {date: {$lte : new Date(max), $gte: new Date(min)} }) })
+      var tasks = await Task.find({userId: id , ...(day && {date: {$lte: new Date(max), $gte: new Date(min)} }) })
     }
     return res.status(201).json({tasks})
   
