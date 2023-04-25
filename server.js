@@ -6,6 +6,11 @@ import cors from 'cors'
 import multer from 'multer'
 import {fileURLToPath} from 'url'
 import path from 'path'
+import UserRoutes from './Routes/User.js'
+import TaskRoutes from './Routes/Task.js'
+import { Register } from './Controllers/User.js'
+//import Task from './models/Task.js'
+//import tasks from './data/tasks.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -31,11 +36,29 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage})
 
+app.use('/auth/register', upload.single('picture'), Register)
+app.use('/auth', UserRoutes)
+app.use('/task', TaskRoutes)
+app.use('/', (req, res) => {
+  res.send('This is a correct response')
+})
+
+
+
 dotenv.config()
+
+app.use((err, req, res, next) => {
+  const status = err.status || 500
+  const message = err.message || 'Ooops, something wrong'
+  return res.status(status).json({message})
+})
+
+
 const PORT =  process.env.PORT || 5000
 
 mongoose.connect(process.env.MONGODB_URI).then(() => {
   app.listen(PORT, () => {
+    //Task.insertMany(tasks) --> for check url in postman
     console.log(`The app is running on the PORT: ${PORT}`)
   })
 }).catch((err) =>{
